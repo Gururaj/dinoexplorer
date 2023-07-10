@@ -34,6 +34,11 @@ class DBConnect:
         result = self.convert(self.dino.search(query.name == name))
         return result
 
+    def searchByType(self, dinoType):
+        query = Query()
+        result = self.convert(self.dino.search(query.dinoType == dinoType))
+        return result
+
     def getAllDinos(self):
         query = Query()
         result = self.convert(self.dino.all())

@@ -5,7 +5,6 @@ from entities.dbconnect import DBConnect
 from entities.dino import Dino
 
 app = Flask(__name__, template_folder="templates", static_folder="statics")
-
 dbconnect = DBConnect()
 
 
@@ -23,6 +22,15 @@ def dinos():
 @app.route("/dino/<id>")
 def getDinoInfo(id):
     dinos = dbconnect.searchById(id)
+    if dinos == None:
+        return "None found"
+    else:
+        return render_template("dino.html", dinos=dinos)
+
+
+@app.route("/dinoType/<dinoType>")
+def getDinoByType(dinoType):
+    dinos = dbconnect.searchByType(dinoType)
     if dinos == None:
         return "None found"
     else:

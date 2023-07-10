@@ -1,25 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1 class="h1-left">{% block title %} List of Dinosaur {% endblock %}</h1><br>
-    <div class="dino">
-        <table class="p-002" border="1">
+<h1 class="h1-left">{% block title %} List of Dinosaur {% endblock %}</h1><br>
+<div class="dino">
+    <table class="styled-table">
+        <thead>
             <th>Name</th>
             <th>Type of Diet</th>
             <th>Height</th>
             <th>Length</th>
             <th>Weight</th>
+        </thead>
         {% for dino in dinos %}
-        <div>
+        <tbody>
             <tr>
                 <td><a href="/dino/{{dino.id}}">{{dino.name}}</a></td>
-                <td>{{dino.dinoType}}</td>
+                <td><a href="/dinoType/{{dino.dinoType}}">{{dino.dinoType}}</a></td>
                 <td>{{dino.height}}</td>
                 <td>{{dino.length}}</td>
                 <td>{{dino.weight}}</td>
-            </tr>            
-        </div>
+            </tr>
+        </tbody>
         {% endfor %}
     </table>
-    </div>
+</div>
 {% endblock %}
