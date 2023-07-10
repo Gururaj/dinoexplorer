@@ -3,6 +3,13 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# archive folder which is not yet processed
+archive/
+.vscode
+
+# ignore db file for now. 
+database/db.json
+
 # C extensions
 *.so
 
