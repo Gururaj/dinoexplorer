@@ -1,30 +1,33 @@
 from flask import Flask, redirect, url_for, request, render_template
-#from getDinoList import getDinoList, getDinoFromId
+
+# from getDinoList import getDinoList, getDinoFromId
 from entities.dbconnect import DBConnect
 from entities.dino import Dino
 
-app = Flask(__name__, template_folder='templates', static_folder='statics')
+app = Flask(__name__, template_folder="templates", static_folder="statics")
 
 dbconnect = DBConnect()
 
-@app.route('/test')
+
+@app.route("/test")
 def index():
-    return render_template('index.html')
+    return render_template("index.html")
 
 
-@app.route('/')
+@app.route("/")
 def dinos():
     dinos = dbconnect.getAllDinos()
-    return render_template('dinos.html', dinos=dinos)
+    return render_template("dinos.html", dinos=dinos)
 
 
-@app.route('/dino/<id>')
+@app.route("/dino/<id>")
 def getDinoInfo(id):
-    dino = dbconnect.searchById(id)    
-    if dino == None:
+    dinos = dbconnect.searchById(id)
+    if dinos == None:
         return "None found"
     else:
-        return render_template('dino.html', dino=dino)
+        return render_template("dino.html", dinos=dinos)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     app.run(debug=True)
