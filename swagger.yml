@@ -1,0 +1,54 @@
+openapi: 3.0.0
+info:
+  title: "Dino Explorer REST API"
+  description: "REST API for Dino Explorer"
+  version: "1.0.0"
+
+servers:
+  - url: "/api"
+
+components:
+  schemas:
+    Dino:
+      type: "object"
+      required:
+        - name
+      properties:
+        name:
+          type: "string"
+        dinoType:
+          type: "string"
+        height:
+          type: "string"
+        weight:
+          type: "string"
+        length:
+          type: "string"
+
+paths:
+  /dinos:
+    get:
+      operationId: "dinoApi.read_all"
+      tags:
+        - "Dinos"
+      summary: "Read all the dinosaurs in the database"
+      responses:
+        "200":
+          description: "A list of dinosaurs"
+  /dino:
+    post:
+      operationId: "dinoApi.create"
+      tags:
+        - "Dino"
+      summary: "Create a new dinosaur"
+      requestBody:
+        description: "Dino object that needs to be added to the database"
+        required: True
+        content:
+          application/json:
+            schema:
+              x-body-name: "dino"
+              $ref: "#/components/schemas/Dino"
+      responses:
+        "201":
+          description: "Dino created"

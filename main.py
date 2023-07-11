@@ -1,19 +1,27 @@
-from flask import Flask, redirect, url_for, request, render_template
+from flask import render_template
+import connexion
+
 
 # from getDinoList import getDinoList, getDinoFromId
 from entities.dbconnect import DBConnect
 from entities.dino import Dino
+from utils import getJsonList
 
-app = Flask(__name__, template_folder="templates", static_folder="statics")
+app = connexion.App(__name__, specification_dir="./")
+app.add_api("swagger.yml")
+
 dbconnect = DBConnect()
 
 
-@app.route("/test")
-def index():
-    return render_template("index.html")
-
-
 @app.route("/")
+def index():
+    return render_template("home.html")
+
+
+# for dino using flask and templates
+
+
+@app.route("/dinolist")
 def dinos():
     dinos = dbconnect.getAllDinos()
     return render_template("dinos.html", dinos=dinos)
@@ -37,5 +45,20 @@ def getDinoByType(dinoType):
         return render_template("dino.html", dinos=dinos)
 
 
+# below are the api versions of above to create a restful api
+
+
+@app.route("/api/dino/<id>")
+def getDinoInfoApi(id):
+    dinos = dbconnect.searchById(id)
+    return getJsonList(dinos)
+
+
+@app.route("/api/dinoType/<dinoType>")
+def getDinoByTypeApi(dinoType):
+    dinos = dbconnect.searchByType(dinoType)
+    return getJsonList(dinos)
+
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(port=8000, debug=True)
