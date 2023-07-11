@@ -17,6 +17,14 @@ class DBConnect:
         self.dino.insert(dino.__dict__)
         return True
 
+    def update(self, id, dino):
+        query = Query()
+        self.dino.update(dino.__dict__, query.id == id)
+
+    def delete(self, id):
+        query = Query()
+        self.dino.remove(query.id == id)
+
     def searchById(self, id):
         query = Query()
         result = self.convert(self.dino.search(query.id == id))

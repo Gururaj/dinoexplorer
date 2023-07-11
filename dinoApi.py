@@ -2,7 +2,7 @@ from datetime import datetime
 from entities.dbconnect import DBConnect
 from entities.dino import Dino
 from utils import getJsonList
-from flask import abort
+from flask import abort, make_response
 
 dbconnect = DBConnect()
 
@@ -13,6 +13,30 @@ def get_timestamp():
 
 def read_all():
     return getJsonList(dbconnect.getAllDinos())
+
+
+def readById(id):
+    return getJsonList(dbconnect.searchById(id))
+
+
+def update(id, dino):
+    name = dino.get("name", None)
+    dinoType = dino.get("dinoType", None)
+    height = dino.get("height", None)
+    length = dino.get("length", None)
+    weight = dino.get("weight", None)
+    dinoObject = Dino(
+        name=name, dinoType=dinoType, height=height, length=length, weight=weight
+    )
+    dbconnect.update(id, dinoObject)
+
+
+def delete(id):
+    if dbconnect.searchById(id):
+        dbconnect.delete(id)
+        return make_response(f"Dino with id {id} has been deleted", 200)
+    else:
+        abort(404, f"Dino with id {id} not found")
 
 
 def create(dino):

@@ -52,3 +52,55 @@ paths:
       responses:
         "201":
           description: "Dino created"
+  /dino/{id}:
+    get:
+      operationId: "dinoApi.readById"
+      tags:
+        - "Dino"
+      summary: "Read a dinosaur by ID"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of dinosaur to return"
+          required: True
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "Dino found"
+    put:
+      operationId: "dinoApi.update"
+      tags:
+        - "Dino"
+      summary: "Update a dinosaur by ID"
+      responses:
+        "200":
+          description: "Dino updated"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of dinosaur to update"
+          required: True
+          schema:
+            type: "string"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: "dino"
+              $ref: "#/components/schemas/Dino"
+    delete:
+      operationId: "dinoApi.delete"
+      tags:
+        - "Dino"
+      summary: "Delete a dinosaur by ID"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of dinosaur to delete"
+          required: True
+          schema:
+            type: "string"
+      responses:
+        "204":
+          description: "Dino deleted"
