@@ -1,7 +1,7 @@
 from datetime import datetime
-from entities.dbconnect import DBConnect
-from entities.dino import Dino
-from utils import getJsonList
+from utils.dbconnect import DBConnect
+from models.dino import Dino
+from utils.conversions import getJsonList
 from flask import abort, make_response
 
 dbconnect = DBConnect()

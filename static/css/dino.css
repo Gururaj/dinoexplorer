@@ -1,0 +1,22 @@
+.dino-create-card {
+  margin-right: 1em;
+}
+
+.dino-create-card {
+  background-color: var(--secondary-color);
+  padding: 1em;
+}
+
+.dino-create-card input {
+  width: 100%;
+}
+
+.dino-list {
+  margin-bottom: 1.3em;
+}
+
+.dino-card {
+  border-left: 0.3em solid var(--main-color);
+  padding: 0.3em 1em;
+  margin: 1em 0;
+}

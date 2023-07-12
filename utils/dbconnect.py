@@ -1,5 +1,5 @@
 from tinydb import TinyDB, Query
-from entities.dino import Dino
+from models.dino import Dino
 
 
 class DBConnect:

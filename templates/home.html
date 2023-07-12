@@ -6,12 +6,27 @@
 <head>
   <meta charset="UTF-8">
   <title>Dinosaur Explorer API</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dino.css') }}">
 </head>
 
 <body>
+
   <h1>
-    Hello, World!
+    Hello, Dinosaurs!
   </h1>
+  <div class="dino-create-card">
+    {% include "_dino_create_form.html" %}
+  </div>
+  <div class="dino-list">
+    {% for dino in dinos %}
+    {% include "_dino_content.html" %}
+    {% endfor %}
+  </div>
+
+  {% if config['DEBUG'] %}
+  {% include "_debug.html" %}
+  {% endif %}
 </body>
 
 </html>

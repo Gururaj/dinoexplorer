@@ -28,7 +28,7 @@ components:
 paths:
   /dinos:
     get:
-      operationId: "dinoApi.read_all"
+      operationId: "api.dinoApi.read_all"
       tags:
         - "Dinos"
       summary: "Read all the dinosaurs in the database"
@@ -37,7 +37,7 @@ paths:
           description: "A list of dinosaurs"
   /dino:
     post:
-      operationId: "dinoApi.create"
+      operationId: "api.dinoApi.create"
       tags:
         - "Dino"
       summary: "Create a new dinosaur"
@@ -54,7 +54,7 @@ paths:
           description: "Dino created"
   /dino/{id}:
     get:
-      operationId: "dinoApi.readById"
+      operationId: "api.dinoApi.readById"
       tags:
         - "Dino"
       summary: "Read a dinosaur by ID"
@@ -69,7 +69,7 @@ paths:
         "200":
           description: "Dino found"
     put:
-      operationId: "dinoApi.update"
+      operationId: "api.dinoApi.update"
       tags:
         - "Dino"
       summary: "Update a dinosaur by ID"
@@ -90,7 +90,7 @@ paths:
               x-body-name: "dino"
               $ref: "#/components/schemas/Dino"
     delete:
-      operationId: "dinoApi.delete"
+      operationId: "api.dinoApi.delete"
       tags:
         - "Dino"
       summary: "Delete a dinosaur by ID"

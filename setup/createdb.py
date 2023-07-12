@@ -1,5 +1,5 @@
-from entities.dbconnect import DBConnect
-from entities.dino import Dino
+from utils.dbconnect import DBConnect
+from models.dino import Dino
 
 
 def testDB():
