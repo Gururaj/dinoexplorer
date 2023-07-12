@@ -35,6 +35,26 @@ paths:
       responses:
         "200":
           description: "A list of dinosaurs"
+  /dinos/search:
+    get:
+      operationId: "api.dinoApi.search"
+      tags:
+        - "Dinos"
+      summary: "Read a dinosaur by Name"
+      parameters:
+        - name: "property"
+          in: "query"
+          description: "Property of dinosaur to return"
+          schema:
+            type: "string"
+        - name: "value"
+          in: "query"
+          description: "Property of dinosaur to return"
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "Dino found"
   /dino:
     post:
       operationId: "api.dinoApi.create"

@@ -13,3 +13,8 @@ Simple Dinosaur exploration for kids. Toy project for now.
 ```
 python entities/createdb.py
 ```
+
+# To Test 
+```
+python -m pytest models/TestDino.py 
+```

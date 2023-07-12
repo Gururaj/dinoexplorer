@@ -23,16 +23,10 @@ class DinosaurModel:
         self.db.delete(dino.id)
 
     def searchById(self, id):
-        query = Query()
-        return self.convert(self.db.search(query.id, id))
+        return self.convert(self.db.search("id", id))
 
-    def searchByName(self, name):
-        query = Query()
-        return self.convert(self.db.search(query.name == name))
-
-    def searchByType(self, dinoType):
-        query = Query()
-        return self.convert(self.db.search(query.dinoType == dinoType))
+    def searchByProperty(self, property, value):
+        return self.convert(self.db.search(property, value))
 
     def convert(self, data):
         result = []
