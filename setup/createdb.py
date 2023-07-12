@@ -1,73 +1,84 @@
+import sys
+
+sys.path.append("..")
+
 from utils.dbconnect import DBConnect
-from models.dino import Dino
+from models.dino import Dinosaur, DinosaurModel
 
 
 def testDB():
-    dbconnect = DBConnect()
-    resetData(dbconnect)
-    print(dbconnect.searchById("triceratops"))
-    print(dbconnect.getAllDinos())
+    db = DBConnect("../database/db.json")
+    resetData(db)
+
+
+def resetData(db):
+    db.connection.drop_table("dino")
+    db.setTable("dino")
+    mock = getMockData()
+    dinoModel = DinosaurModel(db)
+    for m in mock:
+        dinoModel.insert(m)
 
 
 def getMockData():
     dinos = [
         {
             "name": "Sauroposiden",
-            "dinoType": "Herbivore",
-            "height": "89ft",
-            "length": "112ft",
-            "weight": "66 tons",
+            "diet": "Herbivore",
+            "height": "27",
+            "length": "34",
+            "weight": "66000",
+            "dinoType": "Sauropod",
         },
         {
             "name": "Tyrannosaurus Rex",
-            "dinoType": "Carnivore",
-            "height": "20ft",
-            "length": "40ft",
-            "weight": "8 tons",
+            "diet": "Carnivore",
+            "height": "6",
+            "length": "12",
+            "weight": "8000",
+            "dinoType": "Theropod",
         },
         {
             "name": "Velociraptor",
-            "dinoType": "Carnivore",
-            "height": "1.5ft",
-            "length": "6ft",
-            "weight": "33lbs",
+            "diet": "Carnivore",
+            "height": "1",
+            "length": "2",
+            "weight": "15",
+            "dinoType": "Raptor",
         },
         {
             "name": "Triceratops",
-            "dinoType": "Herbivore",
-            "height": "10ft",
-            "length": "30ft",
-            "weight": "12 tons",
+            "diet": "Herbivore",
+            "height": "3",
+            "length": "9",
+            "weight": "12000",
+            "dinoType": "Ceratopsian",
         },
         {
             "name": "Stegosaurus",
-            "dinoType": "Herbivore",
-            "height": "9ft",
-            "length": "30ft",
-            "weight": "6 tons",
+            "diet": "Herbivore",
+            "height": "3",
+            "length": "9",
+            "weight": "6000",
+            "dinoType": "Thyreophoran",
         },
         {
             "name": "Brachiosaurus",
-            "dinoType": "Herbivore",
-            "height": "40ft",
-            "length": "85ft",
-            "weight": "50 tons",
+            "diet": "Herbivore",
+            "height": "12",
+            "length": "26",
+            "weight": "50000",
+            "dinoType": "Sauropod",
         },
     ]
 
     dinoList = []
     for d in dinos:
-        dino = Dino(d["name"], d["dinoType"], d["height"], d["length"], d["weight"])
+        dino = Dinosaur(
+            d["name"], d["diet"], d["height"], d["length"], d["weight"], d["dinoType"]
+        )
         dinoList.append(dino)
     return dinoList
-
-
-def resetData(dbconnect):
-    dbconnect.connection.drop_table("dino")
-    dbconnect.dino = dbconnect.connection.table("dino")
-    mock = getMockData()
-    for m in mock:
-        dbconnect.insert(m)
 
 
 if __name__ == "__main__":

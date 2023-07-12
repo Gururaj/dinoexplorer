@@ -1,10 +1,9 @@
 from datetime import datetime
-from utils.dbconnect import DBConnect
-from models.dino import Dino
+from models.dino import Dinosaur, DinosaurModel
 from utils.conversions import getJsonList
 from flask import abort, make_response
 
-dbconnect = DBConnect()
+dinosaurModel = DinosaurModel()
 
 
 def get_timestamp():
@@ -12,11 +11,11 @@ def get_timestamp():
 
 
 def read_all():
-    return getJsonList(dbconnect.getAllDinos())
+    return getJsonList(dinosaurModel.getAll())
 
 
 def readById(id):
-    return getJsonList(dbconnect.searchById(id))
+    return getJsonList(dinosaurModel.searchById(id))
 
 
 def update(id, dino):
@@ -25,15 +24,21 @@ def update(id, dino):
     height = dino.get("height", None)
     length = dino.get("length", None)
     weight = dino.get("weight", None)
-    dinoObject = Dino(
-        name=name, dinoType=dinoType, height=height, length=length, weight=weight
+    diet = dino.get("diet", None)
+    dinoObject = Dinosaur(
+        name=name,
+        dinoType=dinoType,
+        height=height,
+        length=length,
+        weight=weight,
+        diet=diet,
     )
-    dbconnect.update(id, dinoObject)
+    dinosaurModel.update(id, dinoObject)
 
 
 def delete(id):
-    if dbconnect.searchById(id):
-        dbconnect.delete(id)
+    if dinosaurModel.searchById(id):
+        dinosaurModel.delete(id)
         return make_response(f"Dino with id {id} has been deleted", 200)
     else:
         abort(404, f"Dino with id {id} not found")
@@ -45,11 +50,17 @@ def create(dino):
     height = dino.get("height", None)
     length = dino.get("length", None)
     weight = dino.get("weight", None)
+    diet = dino.get("diet", None)
 
     if name:
-        dinoObject = Dino(
-            name=name, dinoType=dinoType, height=height, length=length, weight=weight
+        dinoObject = Dinosaur(
+            name=name,
+            dinoType=dinoType,
+            height=height,
+            length=length,
+            weight=weight,
+            diet=diet,
         )
-        dbconnect.insert(dinoObject)
+        dinosaurModel.insert(dinoObject)
     else:
         abort(406, f"Some error")

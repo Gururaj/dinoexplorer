@@ -1,11 +1,15 @@
-from tinydb import TinyDB, Query
-from models.dino import Dino
+from tinydb import TinyDB, Query, where
 
 
 class DBConnect:
-    def __init__(self):
-        self.connection = TinyDB("database/db.json")
-        self.dino = self.connection.table("dino")
+    def __init__(self, path=None):
+        if path == None:
+            path = "database/db.json"
+        self.connection = TinyDB(path)
+        self.table = None
+
+    def setTable(self, table):
+        self.table = self.connection.table(table)
 
     def connect(self):
         return True
@@ -13,41 +17,20 @@ class DBConnect:
     def disconnect(self):
         return True
 
-    def insert(self, dino):
-        self.dino.insert(dino.__dict__)
+    def insert(self, keyValuePairs):
+        self.table.insert(keyValuePairs)
         return True
 
-    def update(self, id, dino):
+    def update(self, id, keyValuePairs):
         query = Query()
-        self.dino.update(dino.__dict__, query.id == id)
+        self.table.update(keyValuePairs, query.id == id)
 
     def delete(self, id):
         query = Query()
-        self.dino.remove(query.id == id)
+        self.table.remove(query.id == id)
 
-    def searchById(self, id):
-        query = Query()
-        result = self.convert(self.dino.search(query.id == id))
-        return result
+    def search(self, key, value):
+        return self.table.search(where(key) == value)
 
-    def convert(self, data):
-        result = []
-        for d in data:
-            dino = Dino(d["name"], d["dinoType"], d["height"], d["length"], d["weight"])
-            result.append(dino)
-        return result
-
-    def searchByName(self, name):
-        query = Query()
-        result = self.convert(self.dino.search(query.name == name))
-        return result
-
-    def searchByType(self, dinoType):
-        query = Query()
-        result = self.convert(self.dino.search(query.dinoType == dinoType))
-        return result
-
-    def getAllDinos(self):
-        query = Query()
-        result = self.convert(self.dino.all())
-        return result
+    def getall(self):
+        return self.table.all()
