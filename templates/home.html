@@ -10,18 +10,22 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/dino.css') }}">
 </head>
 
-<body>
+<body class="mainBody">
 
   <h1>
     Hello, Dinosaurs!
   </h1>
+
+  <div class="dino-list">
+    <select class="dino-name" name="name">
+      {% for dino in dinos %}
+      {% include "_dino_content.html" %}
+      {% endfor %}
+    </select>
+  </div>
+
   <div class="dino-create-card">
     {% include "_dino_create_form.html" %}
-  </div>
-  <div class="dino-list">
-    {% for dino in dinos %}
-    {% include "_dino_content.html" %}
-    {% endfor %}
   </div>
 
   {% if config['DEBUG'] %}

@@ -1,7 +1,11 @@
 :root {
-  --bg-color: white;
-  --main-color: coral;
+  --bg-color: #F49E4C;
+  --main-color: gray;
   --secondary-color: lavenderblush;
+}
+
+.mainBody {
+  background: var(--bg-color)
 }
 
 * {
@@ -10,6 +14,7 @@
 
 body {
   color: var(--main-color);
+  background-color: var(--bg-color);
   font-size: 1.3em;
   font-family: sans-serif;
   display: grid;
@@ -18,26 +23,31 @@ body {
 
 h2 {
   margin: 0;
+  background-color: var(--bg-color);
   padding-bottom: 0.3em;
 }
 
 hr {
   border: 1px solid var(--main-color);
+  background-color: var(--bg-color);
   border-bottom: none;
 }
 
 label {
   display: block;
+  background-color: var(--bg-color);
 }
 
 label span {
   min-width: 9ch;
+  background-color: var(--bg-color);
   display: inline-block;
 }
 
 input {
   border: 1px solid var(--main-color);
   color: inherit;
+  background-color: var(--bg-color);
   padding: 0.3em;
 }
 
