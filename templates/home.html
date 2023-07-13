@@ -24,6 +24,13 @@
     </select>
   </div>
 
+  <div class="dino-list">
+    {% for dino in dinos %}
+    <span data-dino-name="{{ dino.name }}">{{ dino.name }}</span>
+    <span data-dino-dinoType="{{ dino.dinoType }}">{{ dino.dinoType }}</span> <br>
+    {% endfor %}
+  </div>
+
   <div class="dino-create-card">
     {% include "_dino_create_form.html" %}
   </div>

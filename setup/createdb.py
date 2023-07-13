@@ -3,6 +3,7 @@ import sys
 sys.path.append("..")
 
 from utils.dbconnect import DBConnect
+from utils.conversions import getDinoList
 from models.dino import Dinosaur, DinosaurModel
 
 
@@ -74,10 +75,7 @@ def getMockData():
 
     dinoList = []
     for d in dinos:
-        dino = Dinosaur(
-            d["name"], d["diet"], d["height"], d["length"], d["weight"], d["dinoType"]
-        )
-        dinoList.append(dino)
+        dinoList.append(Dinosaur.fromJson(d))
     return dinoList
 
 

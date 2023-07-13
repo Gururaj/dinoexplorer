@@ -14,7 +14,7 @@ class DinosaurModel:
         return self.convert(self.db.getall())
 
     def insert(self, dino):
-        self.db.insert(dino.__dict__)
+        self.db.insert(dino)
 
     def update(self, dino):
         self.db.update(dino.id, dino.__dict__)
@@ -29,41 +29,34 @@ class DinosaurModel:
         return self.convert(self.db.search(property, value))
 
     def convert(self, data):
-        result = []
+        dinoList = []
         for d in data:
-            dino = Dinosaur(
-                d["name"],
-                d["diet"],
-                d["height"],
-                d["length"],
-                d["weight"],
-                d["dinoType"],
-            )
-            result.append(dino)
-        return result
+            dinoList.append(Dinosaur.fromJson(d))
+        return dinoList
 
 
-class Dinosaur:
+class Dinosaur(dict):
     def __init__(self, name, diet, height, length, weight, dinoType):
-        self.name = self.checkName(name)
-        self.id = self.createId(name)
-        self.diet = self.checkDiet(diet)
-        # in meters
-        self.height = self.checkHeight(height)
-        # in meters
-        self.length = self.checkLength(length)
-        # in kg
-        self.weight = self.checkWeight(weight)
-        self.dinoType = dinoType
+        dict.__init__(
+            self,
+            name=self.checkName(name),
+            id=self.createId(name),
+            diet=self.checkDiet(diet),
+            height=self.checkHeight(height),
+            length=self.checkLength(length),
+            weight=self.checkWeight(weight),
+            dinoType=self.checkDinoType(dinoType),
+        )
 
-    def __str__(self):
-        finalStr = ""
-        for key, value in self.__dict__.items():
-            finalStr += key + ": " + str(value) + "\n"
-        return finalStr
-
-    def __repr__(self):
-        return self.__str__()
+    def fromJson(data):
+        return Dinosaur(
+            data["name"],
+            data["diet"],
+            data["height"],
+            data["length"],
+            data["weight"],
+            data["dinoType"],
+        )
 
     def createId(self, name):
         return name.replace(" ", "").lower()
@@ -89,36 +82,20 @@ class Dinosaur:
         return int(weight)
 
     def checkDinoType(self, dinoType):
-        dinoTypes = ["Theropod", "Sauropod", "Thyreophoran", "Ceratopsian", "Raptor"]
-        if dinoType not in dinoTypes:
-            raise ValueError("Dino Type must be one of: " + str(dinoTypes))
+        return DinoType(dinoType)
+
+
+class DinoType(dict):
+    dinoTypes = ["theropod", "sauropod", "thyreophoran", "ceratopsian", "raptor"]
+
+    def __init__(self, dinoType):
+        dict.__init__(self, dinoType=self.checkDinoType(str(dinoType)))
+
+    def checkDinoType(self, dinoType):
+        if dinoType.lower() not in self.dinoTypes:
+            raise ValueError("Dino Type must be one of: " + str(self.dinoTypes))
         else:
-            return dinoType
+            return dinoType.capitalize()
 
-
-# def createDinoTypeFactory():
-#     def init(self, typeName):
-#         self.typeName = typeName
-
-#     def strclass(self):
-#         finalStr = ""
-#         for key, value in self.__dict__.items():
-#             finalStr += key + ": " + str(value) + "\n"
-#         return finalStr
-
-#     def repr(self):
-#         return self.__str__()
-
-#     def getType(self):
-#         return self.typeName
-
-#     return type(
-#         "DinoType",
-#         (object,),
-#         {
-#             "__init__": init,
-#             "__str__": strclass,
-#             "__repr__": repr,
-#             "getType": getType,
-#         },
-#     )
+    def __str__(self):
+        return self["dinoType"]

@@ -11,16 +11,15 @@ def get_timestamp():
 
 
 def read_all():
-    print("came here")
-    return getJsonList(dinosaurModel.getAll())
+    return dinosaurModel.getAll()
 
 
 def readById(id):
-    return getJsonList(dinosaurModel.searchById(id))
+    return dinosaurModel.searchById(id)
 
 
 def search(property, value):
-    return getJsonList(dinosaurModel.searchByProperty(property, value))
+    return dinosaurModel.searchByProperty(property, value)
 
 
 def update(id, dino):

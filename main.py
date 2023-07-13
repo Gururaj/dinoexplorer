@@ -1,5 +1,5 @@
 from flask import render_template
-from api.dinoApi import read_all
+from api.dinoApi import read_all, search
 import connexion
 
 from utils.dbconnect import DBConnect
@@ -12,33 +12,6 @@ app.add_api("swagger.yml")
 def index():
     dinos = read_all()
     return render_template("home.html", dinos=dinos)
-
-
-# for dino using flask and templates
-
-
-# @app.route("/dinolist")
-# def dinos():
-#     dinos = dbconnect.getAllDinos()
-#     return render_template("dinos.html", dinos=dinos)
-
-
-# @app.route("/dino/<id>")
-# def getDinoInfo(id):
-#     dinos = dbconnect.searchById(id)
-#     if dinos == None:
-#         return "None found"
-#     else:
-#         return render_template("dino.html", dinos=dinos)
-
-
-# @app.route("/dinoType/<dinoType>")
-# def getDinoByType(dinoType):
-#     dinos = dbconnect.searchByType(dinoType)
-#     if dinos == None:
-#         return "None found"
-#     else:
-#         return render_template("dino.html", dinos=dinos)
 
 
 if __name__ == "__main__":
