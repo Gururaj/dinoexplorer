@@ -3,7 +3,6 @@ import sys
 sys.path.append("..")
 
 from utils.dbconnect import DBConnect
-from utils.conversions import getDinoList
 from models.dino import Dinosaur, DinosaurModel
 
 
