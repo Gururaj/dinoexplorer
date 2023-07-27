@@ -1,21 +1,23 @@
 import sys
 
-sys.path.append("..")
 
 from utils.dbconnect import DBConnect
-from models.dino import Dinosaur, DinosaurModel
+from models.dino import Dinosaur, DinoType
+from models.models import DinosaurModel
 
 
 def testDB():
-    db = DBConnect("../database/db.json")
+    db = DBConnect()
     resetData(db)
 
 
 def resetData(db):
-    db.connection.drop_table("dino")
-    db.setTable("dino")
+    # Let's do delete later.
+    # Delete happens in model for each entity
+    # db.connection.drop_table("dino")
     mock = getMockData()
     dinoModel = DinosaurModel(db)
+    dinoModel.setDB("Dinosaur")
     for m in mock:
         dinoModel.insert(m)
 

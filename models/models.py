@@ -1,12 +1,11 @@
 from utils.dbconnect import DBConnect
-from tinydb import Query
 from dino import Dinosaur, DinoType
 
 
 class DinosaurModel:
     tableNames = {
-        "Dinosaur": "dino",
-        "DinoType": "dinoType",
+        "Dinosaur": "dinoexplorer",
+        "DinoType": "dinotypes",
     }
 
     def __init__(self, db=None):

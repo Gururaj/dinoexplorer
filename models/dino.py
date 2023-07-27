@@ -1,5 +1,9 @@
+from utils.dbconnect import DBConnect
+
+
 class Dinosaur(dict):
     __diets = ["Carnivore", "Herbivore", "Omnivore"]
+    db = "dinoexplorer"
 
     def __init__(self, name, diet, height, length, weight, dinoType):
         dict.__init__(
@@ -47,6 +51,9 @@ class Dinosaur(dict):
 
     def checkDinoType(self, dinoType):
         return DinoType(dinoType)
+
+    def persist(self, db):
+        self.db.update(self.__dict__)
 
 
 class DinoType(dict):
