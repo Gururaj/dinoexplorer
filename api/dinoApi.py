@@ -1,7 +1,12 @@
+
 from datetime import datetime
-from models.dino import Dinosaur, DinosaurModel
-from utils.conversions import getJsonList
+
 from flask import abort, make_response
+
+from entities.dinotype import DinoType
+from entities.dinosaur import Dinosaur
+from models.models import DinosaurModel
+
 
 dinosaurModel = DinosaurModel()
 

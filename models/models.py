@@ -1,12 +1,25 @@
 from utils.dbconnect import DBConnect
-from dino import Dinosaur, DinoType
 
+'''
+What does model needs to be done? 
 
-class DinosaurModel:
+'''
+
+class DBConfig:
     tableNames = {
         "Dinosaur": "dinoexplorer",
         "DinoType": "dinotypes",
     }
+    def __init__(self, tableName):
+        self.
+
+
+class Model(tableName): 
+    
+
+
+class DinosaurModel:
+    
 
     def __init__(self, db=None):
         if db == None:

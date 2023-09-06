@@ -1,8 +1,11 @@
 import sys
+import os 
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 
+from entities.dinosaur import Dinosaur
+from entities.dinotype import DinoType
 from utils.dbconnect import DBConnect
-from models.dino import Dinosaur, DinoType
 from models.models import DinosaurModel
 
 
@@ -81,4 +84,5 @@ def getMockData():
 
 
 if __name__ == "__main__":
-    testDB()
+    # testDB()
+    print("All imports works")

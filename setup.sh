@@ -1,5 +1,6 @@
 #!/bin/bash
 
+pip install virtualenv
 # setup python virtual environment
 
 virtualenv -p python3 venv
